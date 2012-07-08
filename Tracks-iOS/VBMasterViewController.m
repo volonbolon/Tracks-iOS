@@ -169,13 +169,24 @@ titleForHeaderInSection:(NSInteger)section {
   
   [fetchRequest setFetchBatchSize:20];
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"artistName" 
-                                                                 ascending:NO];
+                                                                 ascending:YES];
   NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
   
   [fetchRequest setSortDescriptors:sortDescriptors];
   
   if ( [searchString length] > 0 ) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"artistName CONTAINS[cd] %@", searchString]; 
+    NSUInteger scope = [[[self searchDisplayController] searchBar] selectedScopeButtonIndex];
+    NSPredicate *predicate = nil; 
+    switch ( scope ) {
+      case 0:
+        predicate = [NSPredicate predicateWithFormat:@"artistName CONTAINS[cd] %@", searchString];
+        break;
+        
+      case 1:
+        predicate = [NSPredicate predicateWithFormat:@"trackName CONTAINS[cd] %@", searchString];
+        break; 
+    }
+     
     [fetchRequest setPredicate:predicate]; 
   }
   
@@ -290,7 +301,7 @@ willUnloadSearchResultsTableView:(UITableView *)tableView {
   [self setSearchFetchedResultsController:nil];
 }
 
-
+#pragma mark - Convenience methods to manage controllers and table views
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tv {
   if ( [tv isEqual:[self tableView]] ) {
     return [self fetchedResultsController]; 
