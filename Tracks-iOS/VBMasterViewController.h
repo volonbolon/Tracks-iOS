@@ -12,11 +12,12 @@
 
 #import <CoreData/CoreData.h>
 
-@interface VBMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface VBMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) VBDetailViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchedResultsController *searchFetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

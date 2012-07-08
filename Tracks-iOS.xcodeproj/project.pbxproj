@@ -7,39 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7970BAE015A8D89A00A70D91 /* Tracks_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7970BADE15A8D89A00A70D91 /* Tracks_iOS.xcdatamodeld */; };
 		798E2F8415A8CF60009C19AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798E2F8315A8CF60009C19AA /* UIKit.framework */; };
 		798E2F8615A8CF60009C19AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798E2F8515A8CF60009C19AA /* Foundation.framework */; };
 		798E2F8815A8CF60009C19AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798E2F8715A8CF60009C19AA /* CoreGraphics.framework */; };
 		798E2F8A15A8CF60009C19AA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798E2F8915A8CF60009C19AA /* CoreData.framework */; };
 		798E2F9015A8CF60009C19AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 798E2F8E15A8CF60009C19AA /* InfoPlist.strings */; };
 		798E2F9215A8CF60009C19AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E2F9115A8CF60009C19AA /* main.m */; };
-		798E2F9615A8CF60009C19AA /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E2F9515A8CF60009C19AA /* VBAppDelegate.m */; };
-		798E2F9915A8CF60009C19AA /* Tracks_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 798E2F9715A8CF60009C19AA /* Tracks_iOS.xcdatamodeld */; };
 		798E2F9C15A8CF60009C19AA /* VBMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E2F9B15A8CF60009C19AA /* VBMasterViewController.m */; };
 		798E2F9F15A8CF60009C19AA /* VBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E2F9E15A8CF60009C19AA /* VBDetailViewController.m */; };
 		798E2FA215A8CF60009C19AA /* VBMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798E2FA015A8CF60009C19AA /* VBMasterViewController.xib */; };
 		798E2FA515A8CF60009C19AA /* VBDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798E2FA315A8CF60009C19AA /* VBDetailViewController.xib */; };
+		798E2FB115A8CFC9009C19AA /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E2FAF15A8CFC9009C19AA /* VBAppDelegate.m */; };
+		798E2FB315A8D008009C19AA /* Tracks_iOS.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 798E2FB215A8D008009C19AA /* Tracks_iOS.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7970BADF15A8D89A00A70D91 /* Tracks_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tracks_iOS.xcdatamodel; sourceTree = "<group>"; };
 		798E2F7F15A8CF60009C19AA /* Tracks-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tracks-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		798E2F8315A8CF60009C19AA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		798E2F8515A8CF60009C19AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		798E2F8715A8CF60009C19AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		798E2F8915A8CF60009C19AA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		798E2F8D15A8CF60009C19AA /* Tracks-iOS-Info.plist */ = {isa = PBXFileReference; path = "Tracks-iOS-Info.plist"; sourceTree = "<group>"; };
+		798E2F8D15A8CF60009C19AA /* Tracks-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tracks-iOS-Info.plist"; sourceTree = "<group>"; };
 		798E2F8F15A8CF60009C19AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		798E2F9115A8CF60009C19AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		798E2F9315A8CF60009C19AA /* Tracks-iOS-Prefix.pch */ = {isa = PBXFileReference; path = "Tracks-iOS-Prefix.pch"; sourceTree = "<group>"; };
-		798E2F9415A8CF60009C19AA /* VBAppDelegate.h */ = {isa = PBXFileReference; path = VBAppDelegate.h; sourceTree = "<group>"; };
-		798E2F9515A8CF60009C19AA /* VBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBAppDelegate.m; sourceTree = "<group>"; };
-		798E2F9815A8CF60009C19AA /* Tracks_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tracks_iOS.xcdatamodel; sourceTree = "<group>"; };
-		798E2F9A15A8CF60009C19AA /* VBMasterViewController.h */ = {isa = PBXFileReference; path = VBMasterViewController.h; sourceTree = "<group>"; };
+		798E2F9315A8CF60009C19AA /* Tracks-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tracks-iOS-Prefix.pch"; sourceTree = "<group>"; };
+		798E2F9A15A8CF60009C19AA /* VBMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VBMasterViewController.h; sourceTree = "<group>"; };
 		798E2F9B15A8CF60009C19AA /* VBMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBMasterViewController.m; sourceTree = "<group>"; };
-		798E2F9D15A8CF60009C19AA /* VBDetailViewController.h */ = {isa = PBXFileReference; path = VBDetailViewController.h; sourceTree = "<group>"; };
+		798E2F9D15A8CF60009C19AA /* VBDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VBDetailViewController.h; sourceTree = "<group>"; };
 		798E2F9E15A8CF60009C19AA /* VBDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBDetailViewController.m; sourceTree = "<group>"; };
 		798E2FA115A8CF60009C19AA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VBMasterViewController.xib; sourceTree = "<group>"; };
 		798E2FA415A8CF60009C19AA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VBDetailViewController.xib; sourceTree = "<group>"; };
+		798E2FAE15A8CFC9009C19AA /* VBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBAppDelegate.h; sourceTree = "<group>"; };
+		798E2FAF15A8CFC9009C19AA /* VBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBAppDelegate.m; sourceTree = "<group>"; };
+		798E2FB215A8D008009C19AA /* Tracks_iOS.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tracks_iOS.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		798E2F7415A8CF60009C19AA = {
 			isa = PBXGroup;
 			children = (
+				798E2FB215A8D008009C19AA /* Tracks_iOS.sqlite */,
 				798E2F8B15A8CF60009C19AA /* Tracks-iOS */,
 				798E2F8215A8CF60009C19AA /* Frameworks */,
 				798E2F8015A8CF60009C19AA /* Products */,
@@ -88,16 +91,17 @@
 		798E2F8B15A8CF60009C19AA /* Tracks-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				798E2F9415A8CF60009C19AA /* VBAppDelegate.h */,
-				798E2F9515A8CF60009C19AA /* VBAppDelegate.m */,
+				798E2FAB15A8CFC9009C19AA /* Controllers */,
+				798E2FAC15A8CFC9009C19AA /* Helpers */,
+				798E2FB015A8CFC9009C19AA /* Views */,
 				798E2F9A15A8CF60009C19AA /* VBMasterViewController.h */,
 				798E2F9B15A8CF60009C19AA /* VBMasterViewController.m */,
 				798E2F9D15A8CF60009C19AA /* VBDetailViewController.h */,
 				798E2F9E15A8CF60009C19AA /* VBDetailViewController.m */,
 				798E2FA015A8CF60009C19AA /* VBMasterViewController.xib */,
 				798E2FA315A8CF60009C19AA /* VBDetailViewController.xib */,
-				798E2F9715A8CF60009C19AA /* Tracks_iOS.xcdatamodeld */,
 				798E2F8C15A8CF60009C19AA /* Supporting Files */,
+				7970BADE15A8D89A00A70D91 /* Tracks_iOS.xcdatamodeld */,
 			);
 			path = "Tracks-iOS";
 			sourceTree = "<group>";
@@ -111,6 +115,37 @@
 				798E2F9315A8CF60009C19AA /* Tracks-iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		798E2FAB15A8CFC9009C19AA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		798E2FAC15A8CFC9009C19AA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				798E2FAD15A8CFC9009C19AA /* App Delegate */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		798E2FAD15A8CFC9009C19AA /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				798E2FAE15A8CFC9009C19AA /* VBAppDelegate.h */,
+				798E2FAF15A8CFC9009C19AA /* VBAppDelegate.m */,
+			);
+			path = "App Delegate";
+			sourceTree = "<group>";
+		};
+		798E2FB015A8CFC9009C19AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +202,7 @@
 				798E2F9015A8CF60009C19AA /* InfoPlist.strings in Resources */,
 				798E2FA215A8CF60009C19AA /* VBMasterViewController.xib in Resources */,
 				798E2FA515A8CF60009C19AA /* VBDetailViewController.xib in Resources */,
+				798E2FB315A8D008009C19AA /* Tracks_iOS.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,10 +214,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				798E2F9215A8CF60009C19AA /* main.m in Sources */,
-				798E2F9615A8CF60009C19AA /* VBAppDelegate.m in Sources */,
-				798E2F9915A8CF60009C19AA /* Tracks_iOS.xcdatamodeld in Sources */,
 				798E2F9C15A8CF60009C19AA /* VBMasterViewController.m in Sources */,
 				798E2F9F15A8CF60009C19AA /* VBDetailViewController.m in Sources */,
+				798E2FB115A8CFC9009C19AA /* VBAppDelegate.m in Sources */,
+				7970BAE015A8D89A00A70D91 /* Tracks_iOS.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,16 +337,17 @@
 				798E2FAA15A8CF60009C19AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		798E2F9715A8CF60009C19AA /* Tracks_iOS.xcdatamodeld */ = {
+		7970BADE15A8D89A00A70D91 /* Tracks_iOS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				798E2F9815A8CF60009C19AA /* Tracks_iOS.xcdatamodel */,
+				7970BADF15A8D89A00A70D91 /* Tracks_iOS.xcdatamodel */,
 			);
-			currentVersion = 798E2F9815A8CF60009C19AA /* Tracks_iOS.xcdatamodel */;
+			currentVersion = 7970BADF15A8D89A00A70D91 /* Tracks_iOS.xcdatamodel */;
 			path = Tracks_iOS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
