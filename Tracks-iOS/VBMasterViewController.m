@@ -14,6 +14,7 @@
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController 
                    configureCell:(UITableViewCell *)theCell 
                      atIndexPath:(NSIndexPath *)theIndexPath;
+- (UITableView *)tableViewForController:(NSFetchedResultsController *)controller;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView; 
 - (NSFetchedResultsController *)freshFetchedResultsControllerWithSearch:(NSString *)searchString; 
 - (void)filterContentForSearchText:(NSString *)searchText 
@@ -65,8 +66,6 @@
   // Save the context.
   NSError *error = nil;
   if (![context save:&error]) {
-    // Replace this implementation with code to handle the error appropriately.
-    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
   }
@@ -74,7 +73,6 @@
 
 #pragma mark - Table View
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  
   return [[[self fetchedResultsControllerForTableView:tableView] sections] count];
 }
 
@@ -132,20 +130,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (![self detailViewController]) {
     [self setDetailViewController:[[VBDetailViewController alloc] initWithNibName:@"VBDetailViewController" bundle:nil]];
   }
-  NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+  NSManagedObject *object = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
   [[self detailViewController] setDetailItem:object];
   [[self navigationController] pushViewController:[self detailViewController]
                                          animated:YES];
 }
 
-- (NSString *)tableView:(UITableView *)tableView 
+- (NSString *)tableView:(UITableView *)tv 
 titleForHeaderInSection:(NSInteger)section {
-  NSString *sectionTitle = [[[[self fetchedResultsController] sections] objectAtIndex:section] name];
+  NSFetchedResultsController *controller = [self fetchedResultsControllerForTableView:tv]; 
+  NSString *sectionTitle = [[[controller sections] objectAtIndex:section] name];
   return sectionTitle;
 }
 
-#pragma mark - Fetched results controller
-
+#pragma mark - Fetched results controllers
+// We have two controllers. One for the table, and one to populate the search resultsbowie
 - (NSFetchedResultsController *)fetchedResultsController {
   if (__fetchedResultsController != nil) {
     return __fetchedResultsController;
@@ -162,23 +161,64 @@ titleForHeaderInSection:(NSInteger)section {
   return __searchFetchedResultsController; 
 } 
 
+- (NSFetchedResultsController *)freshFetchedResultsControllerWithSearch:(NSString *)searchString {
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Track"
+                                            inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  
+  [fetchRequest setFetchBatchSize:20];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"artistName" 
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+  
+  [fetchRequest setSortDescriptors:sortDescriptors];
+  
+  if ( [searchString length] > 0 ) {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"artistName CONTAINS[cd] %@", searchString]; 
+    [fetchRequest setPredicate:predicate]; 
+  }
+  
+  [NSFetchedResultsController deleteCacheWithName:@"Master"];
+  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                                                                              managedObjectContext:self.managedObjectContext 
+                                                                                                sectionNameKeyPath:@"artistName" 
+                                                                                                         cacheName:@"Master"];
+  [aFetchedResultsController setDelegate:self]; 
+  
+	NSError *error = nil;
+	if (![aFetchedResultsController performFetch:&error]) {
+    // Replace this implementation with code to handle the error appropriately.
+    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+	}
+  
+  return aFetchedResultsController;
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-  [[self tableView] beginUpdates];
+  [[self tableViewForController:controller] beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+  [[self tableViewForController:controller] endUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
+  UITableView *tableView = [self tableViewForController:controller];
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      [[self tableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                      withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+               withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeDelete:
-      [[self tableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                      withRowAnimation:UITableViewRowAnimationFade];
+      [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+               withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
 }
@@ -188,8 +228,7 @@ titleForHeaderInSection:(NSInteger)section {
        atIndexPath:(NSIndexPath *)indexPath 
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
-  //TODO: identify if the table view is the search table view or the simple one
-  UITableView *tableView = [self tableView];
+  UITableView *tableView = [self tableViewForController:controller];
   
   switch(type) {
     case NSFetchedResultsChangeInsert:
@@ -217,10 +256,6 @@ titleForHeaderInSection:(NSInteger)section {
   }
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-  [self.tableView endUpdates];
-}
-
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController 
                    configureCell:(UITableViewCell *)cell 
                      atIndexPath:(NSIndexPath *)indexPath {
@@ -243,8 +278,10 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption {
   return YES; 
 }
 
-- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tv {
-  return [tv isEqual:[self tableView]] ? [self fetchedResultsController] : [self searchFetchedResultsController];  
+- (void)searchDisplayController:(UISearchDisplayController *)controller
+willUnloadSearchResultsTableView:(UITableView *)tableView {
+  [[self searchFetchedResultsController] setDelegate:nil];
+  [self setSearchFetchedResultsController:nil]; 
 }
 
 - (void)filterContentForSearchText:(NSString *)searchText 
@@ -253,41 +290,19 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption {
   [self setSearchFetchedResultsController:nil];
 }
 
-- (NSFetchedResultsController *)freshFetchedResultsControllerWithSearch:(NSString *)searchString {
-  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Track"
-                                            inManagedObjectContext:self.managedObjectContext];
-  [fetchRequest setEntity:entity];
 
-  [fetchRequest setFetchBatchSize:20];
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"artistName" 
-                                                                 ascending:NO];
-  NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-  
-  [fetchRequest setSortDescriptors:sortDescriptors];
-  
-  if ( [searchString length] > 0 ) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"artistName CONTAINS[cd] %@", searchString]; 
-    [fetchRequest setPredicate:predicate]; 
+- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tv {
+  if ( [tv isEqual:[self tableView]] ) {
+    return [self fetchedResultsController]; 
   }
+  return [self searchFetchedResultsController];  
+}
 
-  [NSFetchedResultsController deleteCacheWithName:@"Master"];
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                                                                              managedObjectContext:self.managedObjectContext 
-                                                                                                sectionNameKeyPath:@"artistName" 
-                                                                                                         cacheName:@"Master"];
-  [aFetchedResultsController setDelegate:self]; 
-  [self setFetchedResultsController:aFetchedResultsController]; 
-  
-	NSError *error = nil;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-    // Replace this implementation with code to handle the error appropriately.
-    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-	}
-  
-  return aFetchedResultsController;
+- (UITableView *)tableViewForController:(NSFetchedResultsController *)controller {
+  if ( [controller isEqual:[self fetchedResultsController]] ) {
+    return [self tableView]; 
+  }
+  return [[self searchDisplayController] searchResultsTableView];
 }
 
 @end
