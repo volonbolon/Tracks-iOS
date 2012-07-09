@@ -28,6 +28,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize searchFetchedResultsController = __searchFetchedResultsController; 
 
+#pragma mark - NSObject
 - (id)initWithNibName:(NSString *)nibNameOrNil 
                bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil 
@@ -38,6 +39,7 @@
   return self;
 }
 
+#pragma mark - UIView
 - (void)viewDidLoad {
   [super viewDidLoad];
   
@@ -53,22 +55,9 @@
   return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)insertNewObject:(id)sender {
-  return; 
-  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-  NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-  
-  // If appropriate, configure the new managed object.
-  // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-  [newManagedObject setValue:[NSDate date] forKey:@"artistName"];
-  
-  // Save the context.
-  NSError *error = nil;
-  if (![context save:&error]) {
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-  }
+#pragma mark - IBAction
+- (IBAction)insertNewObject:(id)sender {
+  // TODO: Implement new track sheet
 }
 
 #pragma mark - Table View
@@ -144,7 +133,7 @@ titleForHeaderInSection:(NSInteger)section {
 }
 
 #pragma mark - Fetched results controllers
-// We have two controllers. One for the table, and one to populate the search resultsbowie
+// We have two controllers. One for the table, and one to populate the search results
 - (NSFetchedResultsController *)fetchedResultsController {
   if (__fetchedResultsController != nil) {
     return __fetchedResultsController;
@@ -161,6 +150,7 @@ titleForHeaderInSection:(NSInteger)section {
   return __searchFetchedResultsController; 
 } 
 
+// This will produce a new fetched result controller when needed
 - (NSFetchedResultsController *)freshFetchedResultsControllerWithSearch:(NSString *)searchString {
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Track"
@@ -186,7 +176,7 @@ titleForHeaderInSection:(NSInteger)section {
         predicate = [NSPredicate predicateWithFormat:@"trackName CONTAINS[cd] %@", searchString];
         break; 
     }
-     
+    
     [fetchRequest setPredicate:predicate]; 
   }
   
@@ -208,6 +198,7 @@ titleForHeaderInSection:(NSInteger)section {
   return aFetchedResultsController;
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
   [[self tableViewForController:controller] beginUpdates];
 }
@@ -267,9 +258,11 @@ titleForHeaderInSection:(NSInteger)section {
   }
 }
 
+#pragma mark - Convinience method to cofigure cell
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController 
                    configureCell:(UITableViewCell *)cell 
                      atIndexPath:(NSIndexPath *)indexPath {
+  
   NSManagedObject *object = [fetchedResultsController objectAtIndexPath:indexPath];
   [[cell textLabel] setText:[object valueForKey:@"trackName"]]; 
 }

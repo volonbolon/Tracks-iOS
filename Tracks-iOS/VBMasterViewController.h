@@ -14,6 +14,8 @@
 
 @interface VBMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
+- (IBAction)insertNewObject:(id)sender;
+
 @property (strong, nonatomic) VBDetailViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
